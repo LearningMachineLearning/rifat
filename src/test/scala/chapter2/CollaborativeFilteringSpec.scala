@@ -90,4 +90,13 @@ class CollaborativeFilteringSpec extends FlatSpec with Matchers {
     minkowski(Map(), users("Jordyn"), 2) should be(0)
   }
 
+  "ComputeNearestNeighbor method" should "return a sorted list of neighbors with distance" in {
+    val haileyNeighbors = List((2.0, "Veronica"), (4.0, "Chan"), (4.0, "Sam"),
+      (4.5, "Dan"), (5.0, "Angelica"), (5.5, "Bill"), (7.5, "Jordyn"))
+    val angelicaNeighbors = List((3.5, "Veronica"), (4.5, "Chan"), (5.0, "Hailey"), (8.0, "Sam"),
+      (9.0, "Bill"), (9.0, "Dan"), (9.5, "Jordyn"))
+    computeNearestNeighbor("Hailey", users) should be(haileyNeighbors)
+    computeNearestNeighbor("Angelica", users) should be(angelicaNeighbors)
+  }
+
 }
