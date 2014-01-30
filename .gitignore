@@ -86,4 +86,4 @@ Icon
 # IDE support files
 /.classpath
 /.project
-
+*.sc
