@@ -8,7 +8,7 @@ import org.scalatest.junit.JUnitRunner
 import CollaborativeFiltering._
 
 @RunWith(classOf[JUnitRunner])
-class MinkowskiSpec extends FlatSpec with Matchers {
+class CollaborativeFilteringSpec extends FlatSpec with Matchers {
 
   // TODO: Create a fixture
   val users = Map(
