@@ -1,26 +1,23 @@
 package chapter2
 
-import common.DoubleOps.RichDouble
+import common.DoubleOps._
+import common.StringOps._
 
 object CollaborativeFiltering {
 
   type Rating = Map[String, Double]
 
   def minkowski(rating1: Rating, rating2: Rating, r: Double) = {
-    val dist = rating1.foldLeft(0.0) { (a, rat) =>
-      (if (rating2.isDefinedAt(rat._1))
-        (rat._2 - rating2(rat._1)).abs ** r
-      else 0) + a
-    }
-    dist ** (1.0 / r)
+    rating1.filterKeys(rating2.isDefinedAt)
+      .foldLeft(0.0)((a, rating) =>
+        ((rating._2 - rating2(rating._1)).abs ** r) + a) ** (1.0 / r)
   }
 
   def computeNearestNeighbor(username: String, users: Map[String, Rating]) = {
-    users.foldLeft(List.empty[(Double, String)]) { (a, user) =>
-      if (username != user._1)
-        (minkowski(users(username), user._2, 1), user._1) :: a
-      else a
-    }.sortBy(_._1)
+    users.filterKeys(username.notEquals)
+      .foldLeft(List.empty[(Double, String)])((a, user) =>
+        (minkowski(users(username), user._2, 1), user._1) :: a)
+      .sortBy(_._1)
   }
 
 }

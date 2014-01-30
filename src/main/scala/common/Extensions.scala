@@ -5,3 +5,9 @@ object DoubleOps {
     def **(exp: Double): Double = Math.pow(x, exp)
   }
 }
+
+object StringOps {
+  implicit class RichString(val s: String) extends AnyVal {
+    def notEquals(anObject: Any) = !s.equals(anObject)
+  }
+}
